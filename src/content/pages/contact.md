@@ -1,9 +1,11 @@
 ---
-template: contact-page
-slug: /contact
-title: Get in touch
+template: research-publications
+slug: /research
+title: Research Publications
 ---
 
-Got a burning question regarding **JAMstack**, Need a new **Website**, or just anything in general. We are happy to talk.
+### My Research Publications
 
-Just send us a message using the form below or you can send us a DM on [Twitter](https://twitter.com/stackrole)
+Here is a list of my research papers. Click on any of the titles to read the full paper or see where it has been published.
+
+---
