@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
-import { RiHeart2Line } from "react-icons/ri"
+import { FaHandshake } from "react-icons/fa"
 
 const Footer = () => (
   <footer
@@ -14,9 +14,9 @@ const Footer = () => (
       <p>
         Guarding Against the Unknown{" "}
         <span className="icon-Handshake">
-          <RiHandshakeLine/>
+          <FaHandshake /> {/* Handshake icon */}
         </span>{" "}
-        Like <Link to="/">a HokageGuard</Link>
+        Like a HokageGuard
       </p>
     </div>
   </footer>
