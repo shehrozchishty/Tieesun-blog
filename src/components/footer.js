@@ -12,11 +12,11 @@ const Footer = () => (
   >
     <div className="container">
       <p>
-        Naruto GatsbyJS Starter for Netlify CMS, Made with{" "}
-        <span className="icon -love">
+        Guarding Against the Unknown{" "}
+        <span className="icon -Handshake">
           <RiHeart2Line />
         </span>{" "}
-        by <Link to="/">Stackrole.com</Link>
+        Like <Link to="/">a Hokage</Link>
       </p>
     </div>
   </footer>
