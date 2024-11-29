@@ -14,9 +14,9 @@ const Footer = () => (
       <p>
         Guarding Against the Unknown{" "}
         <span className="icon-Handshake">
-          <RiHeart2Line />
+          <RiHandshakeLine/>
         </span>{" "}
-        Like <Link to="/">a Hokage</Link>
+        Like <Link to="/">a HokageGuard</Link>
       </p>
     </div>
   </footer>
