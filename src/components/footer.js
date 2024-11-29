@@ -13,7 +13,7 @@ const Footer = () => (
     <div className="container">
       <p>
         Guarding Against the Unknown{" "}
-        <span className="icon -Handshake">
+        <span className="icon-Handshake">
           <RiHeart2Line />
         </span>{" "}
         Like <Link to="/">a Hokage</Link>
