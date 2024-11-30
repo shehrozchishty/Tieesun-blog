@@ -1,19 +1,27 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { graphql } from "gatsby"
-import { RiSendPlane2Line } from "react-icons/ri"
+import { jsx } from "theme-ui";
+import { graphql } from "gatsby";
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Layout from "../components/layout";
+import Seo from "../components/seo";
 
 export const pageQuery = graphql`
-  query ContactQuery($id: String!) {
-    markdownRemark(id: { eq: $id }) {
-      id
-      html
-      excerpt(pruneLength: 140)
-      frontmatter {
-        title
+  query PublicationsQuery {
+    allMarkdownRemark(
+      filter: { frontmatter: { type: { eq: "publication" } } }
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            abstract
+            url
+            date(formatString: "MMMM DD, YYYY")
+          }
+          excerpt(pruneLength: 140)
+        }
       }
     }
     site {
@@ -22,91 +30,68 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 
-const Contact = ({ data }) => {
-  const { markdownRemark, site } = data // data.markdownRemark holds your post data
-  const { frontmatter, html } = markdownRemark
+const Publications = ({ data }) => {
+  const { allMarkdownRemark, site } = data;
+  const publications = allMarkdownRemark.edges;
 
   return (
-    <Layout className="contact-page" sx={contactStyles.contactPage}>
+    <Layout className="publications-page" sx={publicationStyles.publicationsPage}>
       <Seo
-        title={frontmatter.title}
-        description={frontmatter.title + " " + site.siteMetadata.title}
+        title="Publications"
+        description={`Research Publications by ${site.siteMetadata.title}`}
       />
       <div className="wrapper">
-        <h1>{frontmatter.title}</h1>
-        <div
-          className="description"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-        <form
-          className="contact-form"
-          action="/thanks"
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
-        >
-          <input type="hidden" name="form-name" value="contact" />
-          <p>
-            <label>
-              Name
-              <input type="text" name="name" required />
-            </label>
-          </p>
-          <p>
-            <label>
-              Email
-              <input type="email" name="email" required />
-            </label>
-          </p>
-          <p>
-            <label>
-              Subject
-              <input type="text" name="subject" required />
-            </label>
-          </p>
-          <p>
-            <label>
-              Message<textarea name="message" required></textarea>
-            </label>
-          </p>
-          <p className="text-align-right">
-            <button
-              className="button"
-              sx={{
-                variant: "variants.button",
-              }}
-              type="submit"
-            >
-              Send Message{" "}
-              <span className="icon -right">
-                <RiSendPlane2Line />
-              </span>
-            </button>
-          </p>
-        </form>
+        <h1>Research Publications</h1>
+        <ul className="publications-list" sx={publicationStyles.list}>
+          {publications.map(({ node }) => (
+            <li key={node.id} sx={publicationStyles.listItem}>
+              <h2>{node.frontmatter.title}</h2>
+              <p><strong>Abstract:</strong> {node.frontmatter.abstract}</p>
+              <p><em>Published on: {node.frontmatter.date}</em></p>
+              <a
+                href={node.frontmatter.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={publicationStyles.link}
+              >
+                Read More
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Contact
+export default Publications;
 
-const contactStyles = {
-  contactPage: {
-    input: {
-      border: "6px solid",
-      borderColor: "inputBorder",
-      bg: "inputBackground",
-      outline: "none",
-    },
-    textarea: {
-      border: "6px solid",
-      borderColor: "inputBorder",
-      bg: "inputBackground",
-      outline: "none",
+const publicationStyles = {
+  publicationsPage: {
+    h1: {
+      fontSize: "2rem",
+      marginBottom: "1rem",
     },
   },
-}
+  list: {
+    listStyle: "none",
+    padding: 0,
+  },
+  listItem: {
+    marginBottom: "2rem",
+    padding: "1rem",
+    border: "1px solid",
+    borderColor: "border",
+    borderRadius: "8px",
+    backgroundColor: "background",
+  },
+  link: {
+    color: "primary",
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+};
